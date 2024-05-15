@@ -28,7 +28,7 @@ app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix=SWAGGER_URL)
 # )
 
 """Sqlite Connection"""
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///product_management.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///inventory_management.db"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
