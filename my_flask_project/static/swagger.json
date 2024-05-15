@@ -1,0 +1,429 @@
+{
+"openapi": "3.0.0",
+ "info":{
+    "title": "Inventory Management",
+    "description": "To manage the inventory details."
+ },
+ "components":{
+    "schemas":{
+        "Products":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "type":"string"
+                }
+            }
+        },
+        "ProductsList":{
+            "type":"object",
+            "properties":{
+                "id":{
+                    "type":"string"
+                },
+                "name":{
+                    "type":"string"
+                }
+            }
+        },
+        "ProductId":{
+            "type":"string",
+            "properties":{
+                "product_id":{
+                    "type":"string"
+                }
+            }
+        },
+        "LocationId":{
+            "type":"string",
+            "properties":{
+                "location_id":{
+                    "type":"integer"
+                }
+            }
+        },
+        "ProductsUpdate":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "type":"string"
+                }
+            }
+        },
+        "ProductMovementList":{
+            "type":"object",
+            "properties":{
+                "id": {
+                    "type":"integer"
+                },
+                "movement_id":{
+                    "type":"string"
+                },
+                "timestamp": {
+                    "type":"string"
+                },
+                "from_location_id": {
+                    "type":"string"
+                },
+                "to_location_id": {
+                    "type":"string"
+                },
+                "product_id": {
+                    "type":"string"
+                },
+                "qty": {
+                    "type":"string"
+                }
+            }
+        },
+        "ProductMovement":{
+            "type":"object",
+            "properties":{
+                "from_location_id": {
+                    "type":"string"
+                },
+                "to_location_id": {
+                    "type":"string"
+                },
+                "product_id": {
+                    "type":"string"
+                },
+                "qty": {
+                    "type":"integer"
+                }
+            }
+        },
+        "ProductMovementId":{
+            "type":"string",
+            "properties":{
+                "movement_id":{
+                    "type":"string"
+                }
+            }
+        },
+        "Report":{
+            "type":"object",
+            "properties":{
+                "location_id": {
+                    "type":"string"
+                },
+                "location_name":{
+                    "type":"string"
+                },
+                "remaining_quantity": {
+                    "type":"string"
+                }
+            }
+        }
+    }
+ },
+ "paths":{
+    "/products":{
+        "post":{
+            "summary":"To add a new product details",
+            "requestBody":{
+                "required":true,
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/Products"
+                        }
+                    }
+                }
+            },
+            "responses":{
+                "200":{
+                    "description":"Product added successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/Products"
+                    }
+                },
+                "400":{
+                    "description":"Product name is required.",
+                    "schema":{
+                        "$ref":"#/components/schemas/Products"
+                    }
+                }
+            }
+        },
+        "get":{
+                "summary":"To get the all product details",
+                "responses":{
+                    "200":{
+                        "description":"Product details provided successfully.",
+                        "schema":{
+                            "$ref":"#/components/schemas/ProductsList"
+                        }
+                    }
+                }
+            }
+        },
+    "/products/{product_id}":{
+        "get":{
+            "summary":"To a specific product details",
+            "parameters":[{
+                "name":"product_id",
+                "in":"path",
+                "required":true,
+                "type":"string",
+                "schema":{
+                    "$ref":"#/components/schemas/ProductId"
+                }
+            }],
+            "responses":{
+                "200":{
+                    "description":"Product details provided successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsList"
+                    }
+                }
+            }
+        },
+        "put":{
+            "summary":"To update a specific product details",
+            "requestBody":{
+                "required":true,
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/Products"
+                        }
+                    }
+                }
+            },
+            "parameters":[{
+                "name":"product_id",
+                "in":"path",
+                "required":true,
+                "type":"string",
+                "schema":{
+                    "$ref":"#/components/schemas/ProductId"
+                }
+            }],
+            "responses":{
+                "200":{
+                    "description":"Product details updated successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsUpdate"
+                    }
+                }
+            }
+        }
+    },
+    "/locations":{
+        "post":{
+            "summary":"To add a new location details",
+            "requestBody":{
+                "required":true,
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/Products"
+                        }
+                    }
+                }
+            },
+            "responses":{
+                "200":{
+                    "description":"Location added successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/Products"
+                    }
+                },
+                "400":{
+                    "description":"Location name is required.",
+                    "schema":{
+                        "$ref":"#/components/schemas/Products"
+                    }
+                }
+            }
+        },
+        "get":{
+                "summary":"To get the all location details",
+                "responses":{
+                    "200":{
+                        "description":"Location details provided successfully.",
+                        "schema":{
+                            "$ref":"#/components/schemas/ProductsList"
+                        }
+                    }
+                }
+            }
+    },
+    "/locations/{location_id}":{
+        "get":{
+            "summary":"To get a specific location details",
+            "parameters":[{
+                "name":"location_id",
+                "in":"path",
+                "required":true,
+                "type":"string",
+                "schema":{
+                    "$ref":"#/components/schemas/LocationId"
+                }
+            }],
+            "responses":{
+                "200":{
+                    "description":"Location details provided successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsList"
+                    }
+                },
+                "400":{
+                    "description":"Location details not found.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsList"
+                    }
+                }
+            }
+        },
+        "put":{
+            "summary":"To update a specific location details",
+            "requestBody":{
+                "required":true,
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/ProductsUpdate"
+                        }
+                    }
+                }
+            },
+            "parameters":[{
+                "name":"location_id",
+                "in":"path",
+                "required":true,
+                "type":"string",
+                "schema":{
+                    "$ref":"#/components/schemas/LocationId"
+                }
+            }],
+            "responses":{
+                "200":{
+                    "description":"Location details updated successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsUpdate"
+                    }
+                },
+                "400":{
+                    "description":"Location details not found.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsUpdate"
+                    }
+                }
+            }
+        }
+    },
+    "/product_movement":{
+        "post":{
+            "summary":"To add a new product movement details",
+            "requestBody":{
+                "required":true,
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/ProductMovement"
+                        }
+                    }
+                }
+            },
+            "responses":{
+                "200":{
+                    "description":"Product movement details created successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductMovementList"
+                    }
+                }
+            }
+        },
+        "get":{
+                "summary":"To get the all the Product movement details",
+                "responses":{
+                    "200":{
+                        "description":"Product movement details provided successfully.",
+                        "schema":{
+                            "$ref":"#/components/schemas/ProductMovementList"
+                        }
+                    }
+                }
+            }
+    },
+    "/product_movement/{movement_id}":{
+        "get":{
+            "summary":"To get a specific Product movement details",
+            "parameters":[{
+                "name":"movement_id",
+                "in":"path",
+                "required":true,
+                "type":"string",
+                "schema":{
+                    "$ref":"#/components/schemas/ProductMovementId"
+                }
+            }],
+            "responses":{
+                "200":{
+                    "description":"Product movement details provided successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductMovementList"
+                    }
+                },
+                "400":{
+                    "description":"Product movement details not found.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductsList"
+                    }
+                }
+            }
+        },
+        "put":{
+            "summary":"To update a specific Product movement details",
+            "requestBody":{
+                "required":true,
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/ProductMovement"
+                        }
+                    }
+                }
+            },
+            "parameters":[{
+                "name":"movement_id",
+                "in":"path",
+                "required":true,
+                "type":"string",
+                "schema":{
+                    "$ref":"#/components/schemas/ProductMovementId"
+                }
+            }],
+            "responses":{
+                "200":{
+                    "description":"Product movement details updated successfully.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductMovement"
+                    }
+                },
+                "400":{
+                    "description":"Product movement details not found.",
+                    "schema":{
+                        "$ref":"#/components/schemas/ProductMovement"
+                    }
+                }
+            }
+        }
+    },
+    "/report":{
+        "get":{
+                "summary":"To get the overall report.",
+                "responses":{
+                    "200":{
+                        "description":"Report generated successfully.",
+                        "schema":{
+                            "$ref":"#/components/schemas/Report"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
