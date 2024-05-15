@@ -14,7 +14,7 @@ shop or a warehouse that needs to keep track of various products and various loc
 ```inventory_env/Scipts/activate.bat```
 
 ### Navigate to the project directory
-```cd Inventory-Management-```
+```cd Inventory-Management-/my_flask_project```
 
 ### Install dependencies
 ```pip install -r requirements.txt```
@@ -28,3 +28,6 @@ Update database connection in the top of the app.py file
 
 ### Run application
 ```flask run``` to run the appication
+
+### Swagger UI
+Using ```http://127.0.0.1:5000/api/docs``` to test the APIs

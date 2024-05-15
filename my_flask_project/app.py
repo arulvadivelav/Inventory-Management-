@@ -8,16 +8,12 @@ from flask_apidoc import ApiDoc
 app = Flask(__name__)
 ApiDoc(app)
 
-SWAGGER_URL = "/api/docs" 
+SWAGGER_URL = "/api/docs"
 API_URL = "/static/swagger.json"
 SWAGGER_BLUEPRINT = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        "app_name": "products"
-    }
+    SWAGGER_URL, API_URL, config={"app_name": "products"}
 )
-app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix = SWAGGER_URL)
+app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 """Postgresql Connection"""
 # # Database connection parameters
@@ -32,7 +28,7 @@ app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix = SWAGGER_URL)
 # )
 
 """Sqlite Connection"""
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///product_management.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///product_management.db"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
